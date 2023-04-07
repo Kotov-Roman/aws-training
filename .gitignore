@@ -81,4 +81,4 @@ nb-configuration.xml
 ##############################
 .DS_Store
 /files
-/aws-commands
+/aws-commands/keys

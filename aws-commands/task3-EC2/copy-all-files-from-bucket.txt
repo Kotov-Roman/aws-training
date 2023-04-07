@@ -1,0 +1,1 @@
+aws s3 cp s3://roman-kotov-task1-bucket project --recursive
