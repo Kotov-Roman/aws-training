@@ -46,3 +46,5 @@ sudo umount -d /dev/xvdr
 
 
 sudo yum install java-11-amazon-corretto
+
+ssh-keygen -t ed25519 -C "poma.kotov@gmail.com"
