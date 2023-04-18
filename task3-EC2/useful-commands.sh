@@ -25,6 +25,8 @@ sudo service httpd start
 cd /var/www/html/
 
 sudo systemctl disable httpd
+sudo systemctl enable httpd
+sudo systemctl status httpd
 
 #62.4.34.145 ip last time
 # sh .\task-3-auth-unix.sh <your-profile-name> <security-group-id> <region>
@@ -47,4 +49,9 @@ sudo umount -d /dev/xvdr
 
 sudo yum install java-11-amazon-corretto
 
-ssh-keygen -t ed25519 -C "poma.kotov@gmail.com"
+ssh-keygen -t ed25519 -C "myemail@epam.com"
+
+ssh-add --apple-use-keychain ~/.ssh/[filenameOfKey]
+pbcopy < ~/.ssh/[filenameOfKey].pub
+#check auth
+ssh -T git@git.epam.com

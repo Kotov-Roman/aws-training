@@ -1,0 +1,75 @@
+AWSTemplateFormatVersion: 2010-09-09
+Metadata:
+  'AWS::CloudFormation::Designer':
+    654860b6-6089-4580-a594-96c9ec2cdbb3:
+      size:
+        width: 140
+        height: 140
+      position:
+        x: 211
+        'y': 161
+      z: 0
+Resources:
+  task6VPC:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: !Ref CidrBlockParam
+      Tags:
+        - Key: "Name"
+          Value: "task6 VPC"
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 654860b6-6089-4580-a594-96c9ec2cdbb3
+
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref AZ1
+      VpcId: !Ref task6VPC
+      CidrBlock: !Select [ 0, !Ref SubnetIpBlocks ]
+      Tags:
+        - Key: "Name"
+          Value: "testname for PublicSubnet1"
+
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref AZ2
+      VpcId: !Ref task6VPC
+      CidrBlock: !Select [ 1, !Ref SubnetIpBlocks ]
+      Tags:
+        - Key: "Name"
+          Value: "testname for PrivateSubnet1"
+
+
+Parameters:
+  CidrBlockParam:
+    Type: String
+    Default: 10.0.0.0/16
+    Description: Enter CidrBlock
+  SubnetIpBlocks:
+    Description: "public CIDR blocks for first and second public subnet"
+    Type: CommaDelimitedList
+    Default: "10.0.11.0/24, 10.0.21.0/24"
+
+  #    Default: '!Split [",", Fn::GetAZs: ""]'
+  AZ1:
+    Description: "Availability Zone 1"
+    Type: String
+    Default: us-east-1a
+  AZ2:
+    Description: "Availability Zone 2"
+    Type: String
+    Default: us-east-1b
+
+
+#  AZ2:
+#    Type: String
+#    Default: "choose"
+#    AllowedValues:
+#      Fn::GetAZs: ""
+#    Description: Enter AZ.
+
+#      - "${AWS::Region}${AZ}"
+
+
