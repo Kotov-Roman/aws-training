@@ -15,4 +15,9 @@ public class HealthCheckController {
         String availabilityZone = EC2MetadataUtils.getAvailabilityZone();
         return ResponseEntity.ok(new HealthCheckDto(region, availabilityZone));
     }
+    @GetMapping("/roma")
+    public ResponseEntity<String> roma(){
+
+        return ResponseEntity.ok("running");
+    }
 }

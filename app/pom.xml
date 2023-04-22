@@ -78,9 +78,11 @@
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>${maven.assembly.plugin.version}</version>
                     <configuration>
+                        <finalName>app-full</finalName>
                         <descriptorRefs>
                             <descriptorRef>jar-with-dependencies</descriptorRef>
                         </descriptorRefs>
+                        <appendAssemblyId>false</appendAssemblyId>
                         <archive>
                             <manifest>
                                 <mainClass>com/epam/Application</mainClass>
