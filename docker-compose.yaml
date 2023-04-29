@@ -1,35 +1,55 @@
 services:
-  db:
-    image: postgres
-    volumes:
-      - db-data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=blogdemo
-      - POSTGRES_PASSWORD=lmnop
-    expose:
-      - 5432
-    restart: always
   app-dc:
-    build: .
+    build: app
     ports:
       - 8080:8080
     environment:
-      - POSTGRES_DB=blogdemo
-      - POSTGRES_HOST=db
-      - POSTGRES_PASSWORD=lmnop
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     depends_on:
-      - db
+      - app-db
     restart: always
-  app-dc-2:
-    build: .
+  app-db:
+    image: postgres
+    volumes:
+      - app-dc-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+#    expose:
+#      - 5432
+    ports:
+      - 5434:5432
+    restart: always
+
+  second-app:
+    build: app
     ports:
       - 8081:8080
     environment:
-      - POSTGRES_DB=blogdemo
-      - POSTGRES_HOST=db
-      - POSTGRES_PASSWORD=lmnop
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     depends_on:
-      - db
+      - second-app-db
+    restart: always
+
+  second-app-db:
+    image: postgres
+    volumes:
+      - second-app-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    #    expose:
+    #      - 5432
+    ports:
+      - 5435:5432
     restart: always
 volumes:
-  db-data:
+  app-dc-db-data:
+  second-app-data:
+

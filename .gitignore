@@ -82,3 +82,4 @@ nb-configuration.xml
 .DS_Store
 /files
 /aws-commands/keys
+/app/src/main/resources/application-local.yaml

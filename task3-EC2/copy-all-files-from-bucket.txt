@@ -1,1 +1,2 @@
-aws s3 cp s3://roman-kotov-task1-bucket project --recursive
+aws s3 cp s3://roman-kotov-task1-bucket project . --recursive
+aws s3 cp s3://roman-kotov-task1-bucket/app-runnable.jar .

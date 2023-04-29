@@ -28,7 +28,7 @@ sudo systemctl disable httpd
 sudo systemctl enable httpd
 sudo systemctl status httpd
 
-#62.4.34.145 ip last time
+#62.4.34.145/32 ip last time
 # sh .\task-3-auth-unix.sh <your-profile-name> <security-group-id> <region>
 # sh update-my-ip-for-EC2-By-groupId.sh user_FullEC2 sg-02cc8f8dbe3b5af49 us-east-1
 profile=$1

@@ -78,7 +78,7 @@
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>${maven.assembly.plugin.version}</version>
                     <configuration>
-                        <finalName>app-full</finalName>
+                        <finalName>app-runnable</finalName>
                         <descriptorRefs>
                             <descriptorRef>jar-with-dependencies</descriptorRef>
                         </descriptorRefs>
