@@ -1,4 +1,4 @@
-package com.epam.service.api;
+package com.epam.service;
 
 import com.epam.domain.ImageMetadata;
 import com.epam.dto.ImageDto;

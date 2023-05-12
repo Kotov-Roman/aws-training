@@ -1,7 +1,13 @@
+server:
+  port : 8080
+
+host:
+  dns: ${SERVER_DNS}
+
 spring:
   jpa:
     database: POSTGRESQL
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: update
   datasource:
@@ -13,3 +19,9 @@ spring:
 s3:
   bucket:
     name: roman-kotov-task1-bucket
+
+sns:
+  topic-arn: arn:aws:sns:us-east-1:262160507634:t8-uploads-notification-topic
+
+sqs:
+  queueUrl: https://sqs.us-east-1.amazonaws.com/262160507634/t8-uploads-notification-queue

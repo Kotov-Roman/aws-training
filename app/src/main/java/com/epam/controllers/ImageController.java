@@ -2,7 +2,7 @@ package com.epam.controllers;
 
 import com.epam.domain.ImageMetadata;
 import com.epam.dto.ImageDto;
-import com.epam.service.api.ImageFacade;
+import com.epam.service.ImageFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamSource;
 import org.springframework.http.HttpHeaders;

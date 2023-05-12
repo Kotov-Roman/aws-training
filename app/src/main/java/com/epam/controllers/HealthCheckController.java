@@ -1,10 +1,10 @@
 package com.epam.controllers;
 
-import com.amazonaws.util.EC2MetadataUtils;
 import com.epam.dto.HealthCheckDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import software.amazon.awssdk.regions.internal.util.EC2MetadataUtils;
 
 @RestController
 public class HealthCheckController {

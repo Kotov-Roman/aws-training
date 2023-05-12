@@ -26,24 +26,23 @@ public class S3Service {
 
     private final S3Client s3Client;
     @Value("${s3.bucket.name}")
-    private String BUCKET_NAME;
+    private String bucketName;
 
     public void upload(ImageMetadata imageMetadata, InputStream fileInputStream) {
-
         PutObjectRequest putOb = PutObjectRequest.builder()
-                .bucket(BUCKET_NAME)
+                .bucket(bucketName)
                 .key(imageMetadata.getName())
                 .build();
 
         S3Response response =
                 s3Client.putObject(putOb, RequestBody.fromInputStream(fileInputStream, imageMetadata.getSize()));
-        String successMsg = "Successfully placed " + imageMetadata.getName() + " into bucket " + BUCKET_NAME;
+        String successMsg = "Successfully placed " + imageMetadata.getName() + " into bucket " + bucketName;
         logResponseResult(successMsg, response, HttpStatusCode.OK);
     }
 
     public InputStreamSource download(String key) {
         GetObjectRequest request = GetObjectRequest.builder()
-                .bucket(BUCKET_NAME)
+                .bucket(bucketName)
                 .key(key)
                 .build();
 
@@ -53,12 +52,12 @@ public class S3Service {
 
     public void delete(String name) {
         DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
-                .bucket(BUCKET_NAME)
+                .bucket(bucketName)
                 .key(name)
                 .build();
 
         S3Response response = s3Client.deleteObject(deleteObjectRequest);
-        String successMsg = "Successfully deleted " + name + " from bucket " + BUCKET_NAME;
+        String successMsg = "Successfully deleted " + name + " from bucket " + bucketName;
         logResponseResult(successMsg, response, HttpStatusCode.NO_CONTENT);
     }
 

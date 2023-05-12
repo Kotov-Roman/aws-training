@@ -2,13 +2,12 @@ package com.epam.service.impl;
 
 import com.epam.domain.ImageMetadata;
 import com.epam.dto.ImageDto;
-import com.epam.repos.ImageMetadataRepository;
-import com.epam.service.api.ImageFacade;
+import com.epam.messaging.SqsMessageProducer;
+import com.epam.service.ImageFacade;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.InputStreamSource;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -20,12 +19,11 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 public class ImageFacadeImpl implements ImageFacade {
-    private final ImageMetadataRepository imageMetadataRepository;
     private final ImageMetadataService imageMetadataService;
     private final S3Service s3Service;
+    private final SqsMessageProducer messageProducer;
 
     @Override
-    @Transactional
     public void upload(MultipartFile file) {
         LocalDateTime uploadDate = LocalDateTime.now();
         String originalFilename = file.getOriginalFilename();
@@ -46,10 +44,10 @@ public class ImageFacadeImpl implements ImageFacade {
 
         imageMetadataService.save(imageMetadata);
         s3Service.upload(imageMetadata, fileInputStream);
+        messageProducer.sendMessage(imageMetadata.getId().toString());
     }
 
     @Override
-    @Transactional
     public Long deleteByName(String name) {
         s3Service.delete(name);
         return imageMetadataService.deleteByName(name);
@@ -57,13 +55,12 @@ public class ImageFacadeImpl implements ImageFacade {
 
     @Override
     public List<ImageMetadata> getAllImagesMetadata() {
-        return imageMetadataRepository.findAll();
+        return imageMetadataService.findAll();
     }
 
     @Override
     public ImageMetadata getImageMetadata(Long id) {
-        return imageMetadataRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("not found by id=" + id));
+        return imageMetadataService.findById(id);
     }
 
     @Override
