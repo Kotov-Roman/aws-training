@@ -1,6 +1,7 @@
 package com.epam.messaging;
 
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import software.amazon.awssdk.services.sqs.model.SqsException;
 
 @Component
 @RequiredArgsConstructor
+@Setter
 @Slf4j
 public class SqsMessageRemover {
     @Value("${sqs.queueUrl}")

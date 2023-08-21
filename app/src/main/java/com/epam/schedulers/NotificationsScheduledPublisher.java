@@ -25,17 +25,18 @@ public class NotificationsScheduledPublisher {
 
     @Scheduled(fixedRate = 5, timeUnit = TimeUnit.SECONDS)
     public void publish() {
-        List<Message> messages = sqsMessageConsumer.receiveMessages();
-        for (Message message : messages) {
-            Long imageId = Long.valueOf(message.body());
-
-            // build message string and url
-            String notificationText = emailNotificationBuilder.buildByImageId(imageId);
-
-            boolean isPublished = snsMessagePublisher.publish(notificationText);
-            if (isPublished) {
-                sqsMessageRemover.deleteMessage(message);
-            }
-        }
+        // will be invoked manually at lambda
+//        List<Message> messages = sqsMessageConsumer.receiveMessages();
+//        for (Message message : messages) {
+//            Long imageId = Long.valueOf(message.body());
+//
+//            // build message string and url
+//            String notificationText = emailNotificationBuilder.buildByImageId(imageId);
+//
+//            boolean isPublished = snsMessagePublisher.publish(notificationText);
+//            if (isPublished) {
+//                sqsMessageRemover.deleteMessage(message);
+//            }
+//        }
     }
 }

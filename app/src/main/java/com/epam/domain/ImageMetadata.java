@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@NoArgsConstructor
 @Builder
 @AllArgsConstructor
 public class ImageMetadata {
